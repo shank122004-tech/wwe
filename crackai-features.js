@@ -108,22 +108,67 @@
    * SECTION 1 — EXAM & CLASS CONFIGS
    * ───────────────────────────────────────────────────────────── */
   const EXAM_CONFIGS = {
+    // SSC Exams
     cgl:    { label:'SSC CGL',      color:'#f59e0b', years:[2024,2023,2022,2021,2020], type:'exam' },
     chsl:   { label:'SSC CHSL',     color:'#6C63FF', years:[2024,2023,2022,2021],      type:'exam' },
-    upsc:   { label:'UPSC',         color:'#10b981', years:[2024,2023,2022],            type:'exam' },
+    gd:     { label:'SSC GD',       color:'#10b981', years:[2024,2023,2022],            type:'exam' },
+    mts:    { label:'SSC MTS',      color:'#34d399', years:[2024,2023,2022],            type:'exam' },
+    cpo:    { label:'SSC CPO/SI',   color:'#6ee7b7', years:[2024,2023],                type:'exam' },
+    // Competitive Exams
+    upsc:   { label:'UPSC CSE',     color:'#10b981', years:[2024,2023,2022],            type:'exam' },
     rrb:    { label:'RRB NTPC',     color:'#38bdf8', years:[2024,2023,2022],            type:'exam' },
     ibps:   { label:'IBPS PO',      color:'#a78bfa', years:[2024,2023],                type:'exam' },
     cuet:   { label:'CUET',         color:'#FF6B9D', years:[2024,2023],                type:'exam' },
     cds:    { label:'CDS',          color:'#fb923c', years:[2024,2023],                type:'exam' },
     nda:    { label:'NDA',          color:'#34d399', years:[2024,2023],                type:'exam' },
-    // School Classes
+    cat:    { label:'CAT/MBA',      color:'#f97316', years:[2024,2023],                type:'exam' },
+    gate:   { label:'GATE',         color:'#8b5cf6', years:[2024,2023],                type:'exam' },
+    jee:    { label:'JEE Main/Adv', color:'#06b6d4', years:[2024,2023,2022],           type:'exam' },
+    neet:   { label:'NEET UG',      color:'#ec4899', years:[2024,2023,2022],           type:'exam' },
+    // School Classes 1-5
+    class1:  { label:'Class 1',     color:'#fbbf24', subjects:['English','Maths','EVS','Hindi'], type:'class' },
+    class2:  { label:'Class 2',     color:'#f97316', subjects:['English','Maths','EVS','Hindi'], type:'class' },
+    class3:  { label:'Class 3',     color:'#10b981', subjects:['English','Maths','EVS','Hindi'], type:'class' },
+    class4:  { label:'Class 4',     color:'#06b6d4', subjects:['English','Maths','Science','Social Studies','Hindi'], type:'class' },
+    class5:  { label:'Class 5',     color:'#8b5cf6', subjects:['English','Maths','Science','Social Studies','Hindi'], type:'class' },
+    // School Classes 6-8
     class6:  { label:'Class 6',     color:'#60a5fa', subjects:['Maths','Science','English','Social Science','Hindi'], type:'class' },
     class7:  { label:'Class 7',     color:'#818cf8', subjects:['Maths','Science','English','Social Science','Hindi'], type:'class' },
     class8:  { label:'Class 8',     color:'#c084fc', subjects:['Maths','Science','English','Social Science','Hindi'], type:'class' },
+    // School Classes 9-12
     class9:  { label:'Class 9',     color:'#f472b6', subjects:['Maths','Science','English','Social Science','Hindi'], type:'class' },
     class10: { label:'Class 10',    color:'#fb7185', subjects:['Maths','Science','English','Social Science','Hindi'], type:'class' },
+    class11_sci: { label:'Class 11 Science', color:'#fbbf24', subjects:['Physics','Chemistry','Maths','Biology','English'], type:'class' },
+    class11_com: { label:'Class 11 Commerce', color:'#f59e0b', subjects:['Accountancy','Business Studies','Economics','English','Maths'], type:'class' },
+    class11_arts: { label:'Class 11 Arts', color:'#fb923c', subjects:['History','Geography','Political Science','Economics','English'], type:'class' },
     class11: { label:'Class 11',    color:'#fbbf24', subjects:['Physics','Chemistry','Maths','Biology','English','Economics','Accountancy'], type:'class' },
+    class12_sci: { label:'Class 12 Science', color:'#4ade80', subjects:['Physics','Chemistry','Maths','Biology','English'], type:'class' },
+    class12_com: { label:'Class 12 Commerce', color:'#22c55e', subjects:['Accountancy','Business Studies','Economics','English','Maths'], type:'class' },
+    class12_arts: { label:'Class 12 Arts', color:'#86efac', subjects:['History','Geography','Political Science','Economics','English'], type:'class' },
     class12: { label:'Class 12',    color:'#4ade80', subjects:['Physics','Chemistry','Maths','Biology','English','Economics','Accountancy'], type:'class' },
+    // B.Tech / Engineering
+    btech_cs: { label:'B.Tech CS',   color:'#6C63FF', subjects:['DSA','DBMS','OS','CN','OOP','Algorithms'], type:'college' },
+    btech_ai: { label:'B.Tech AI/ML',color:'#a78bfa', subjects:['ML','Deep Learning','Python','Statistics','NLP'], type:'college' },
+    btech_ds: { label:'B.Tech Data Science',color:'#38bdf8', subjects:['Statistics','ML','Python','SQL','Data Viz'], type:'college' },
+    btech_it: { label:'B.Tech IT',   color:'#818cf8', subjects:['Networks','Security','Web Dev','DBMS','OS'], type:'college' },
+    btech_ec: { label:'B.Tech ECE',  color:'#34d399', subjects:['Electronics','Signals','VLSI','Communication','Analog'], type:'college' },
+    btech_ee: { label:'B.Tech EE',   color:'#fbbf24', subjects:['Power Systems','Machines','Control','Circuits','Electromagnetics'], type:'college' },
+    btech_me: { label:'B.Tech Mech', color:'#fb923c', subjects:['Thermodynamics','Mechanics','Manufacturing','Fluids','Materials'], type:'college' },
+    btech_ce: { label:'B.Tech Civil',color:'#f59e0b', subjects:['Structures','Concrete','Geotechnical','Surveying','Fluids'], type:'college' },
+    // B.Sc / Science
+    bsc_cs:  { label:'B.Sc CS',      color:'#06b6d4', subjects:['Programming','DBMS','OS','Algorithms','Web'], type:'college' },
+    bsc_maths: { label:'B.Sc Maths', color:'#8b5cf6', subjects:['Calculus','Algebra','Analysis','Statistics','Geometry'], type:'college' },
+    bsc_physics: { label:'B.Sc Physics', color:'#60a5fa', subjects:['Mechanics','Electromagnetism','Optics','Quantum','Thermodynamics'], type:'college' },
+    // BCA / MCA / B.Com
+    bca:     { label:'BCA',          color:'#c084fc', subjects:['Programming','Web Dev','DBMS','Networks','Maths'], type:'college' },
+    mca:     { label:'MCA',          color:'#f472b6', subjects:['Advanced Programming','AI','DBMS','Software Engg','Algorithms'], type:'college' },
+    bcom:    { label:'B.Com',        color:'#fbbf24', subjects:['Accountancy','Economics','Business Law','Finance','Tax'], type:'college' },
+    bba:     { label:'BBA',          color:'#fb7185', subjects:['Management','Marketing','Finance','HR','Accounting'], type:'college' },
+    // Diploma / Polytechnic
+    diploma_cs:    { label:'Diploma CS',    color:'#4ade80', subjects:['Programming','Web Dev','DBMS','Networking','OS'], type:'diploma' },
+    diploma_ec:    { label:'Diploma Electronics', color:'#34d399', subjects:['Electronics','Digital','Microcontrollers','PCB','Communication'], type:'diploma' },
+    diploma_me:    { label:'Diploma Mechanical', color:'#fb923c', subjects:['Workshop','Thermodynamics','Manufacturing','Metrology','Fluids'], type:'diploma' },
+    diploma_civil: { label:'Diploma Civil', color:'#f59e0b', subjects:['Drawing','Concrete','Surveying','Construction','Materials'], type:'diploma' },
   };
 
   /* ─────────────────────────────────────────────────────────────
@@ -181,7 +226,14 @@
     const cached = lsGet(cacheKey, 'null');
     if (cached && Array.isArray(cached) && cached.length >= count) return cached;
     const conf = EXAM_CONFIGS[exam];
-    const context = conf && conf.type === 'class' ? ('Class ' + exam.replace('class','') + ' NCERT') : ((conf ? conf.label : exam) + ' ' + year);
+    let context;
+    if (conf && (conf.type === 'college' || conf.type === 'diploma')) {
+      context = conf.label + ' semester exam';
+    } else if (conf && conf.type === 'class') {
+      context = conf.label + ' NCERT board exam';
+    } else {
+      context = (conf ? conf.label : exam) + ' ' + year;
+    }
     const prompt = 'Generate exactly ' + count + ' MCQs for ' + context + '. Return ONLY a JSON array, no markdown.\n[{"q":"...","opts":["A","B","C","D"],"ans":0,"topic":"...","exp":"..."}]';
     const qs = await fetchSmallBatch(prompt, 800);
     if (qs.length) { lsSet(cacheKey, qs); return qs; }
@@ -197,7 +249,14 @@
     const conf = EXAM_CONFIGS[exam];
     const label = conf ? conf.label : exam;
     const PER = 10;
-    const sections = ['Quantitative Aptitude','English Language','General Awareness','Reasoning Ability'].slice(0, Math.ceil(count / PER));
+    let sections;
+    if (conf && (conf.type === 'college' || conf.type === 'diploma')) {
+      sections = (conf.subjects || ['Core Subject 1','Core Subject 2','Core Subject 3','Core Subject 4']).slice(0, Math.ceil(count / PER));
+    } else if (conf && conf.type === 'class') {
+      sections = (conf.subjects || ['Mathematics','Science','English','Social Science']).slice(0, Math.ceil(count / PER));
+    } else {
+      sections = ['Quantitative Aptitude','English Language','General Awareness','Reasoning Ability'].slice(0, Math.ceil(count / PER));
+    }
     const results = await Promise.all(sections.map(function(sec) {
       const p = 'Generate exactly ' + PER + ' MCQs for ' + label + ' mock test, topic: ' + sec + '. Return ONLY a JSON array, no markdown.\n[{"q":"...","opts":["A","B","C","D"],"ans":0,"topic":"' + sec + '","exp":"..."}]';
       return fetchSmallBatch(p, 900);
@@ -766,12 +825,22 @@ async function _generateQuizQuestions(exam, count, type) {
     _renderPYQHome() {
       const body = document.getElementById('cf-pyq-modal_body');
       if (!body) return;
-      const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam');
+      // Include all study modes: exams, classes, college, diploma
+      const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam'||v.type==='class'||v.type==='college'||v.type==='diploma');
+      const sscExams = exams.filter(([k,v])=>['cgl','chsl','gd','mts','cpo'].includes(k));
+      const compExams = exams.filter(([k,v])=>v.type==='exam'&&!['cgl','chsl','gd','mts','cpo'].includes(k));
+      const classExams = exams.filter(([k,v])=>v.type==='class');
+      const collegeExams = exams.filter(([k,v])=>v.type==='college'||v.type==='diploma');
+      function chipGroup(label, arr) {
+        if (!arr.length) return '';
+        return `<div class="cf-section-label" style="margin-top:14px">${label}</div><div class="cf-exam-grid">${arr.map(([k,v])=>`<button class="cf-exam-chip" style="--ec:${v.color}" onclick="CF._renderPYQYears('${k}')">${v.label}</button>`).join('')}</div>`;
+      }
       body.innerHTML = `
-        <div class="cf-section-label">📚 Select Exam</div>
-        <div class="cf-exam-grid">
-          ${exams.map(([k,v])=>`<button class="cf-exam-chip" style="--ec:${v.color}" onclick="CF._renderPYQYears('${k}')">${v.label}</button>`).join('')}
-        </div>
+        <div class="cf-section-label">📚 Select Study Mode</div>
+        ${chipGroup('⚔️ SSC Exams', sscExams)}
+        ${chipGroup('📋 Competitive Exams', compExams)}
+        ${chipGroup('📖 Class 1–12', classExams)}
+        ${chipGroup('🎓 College / Diploma', collegeExams)}
         <div id="cf-pyq-years" style="margin-top:18px"></div>
         <div id="cf-pyq-questions" style="margin-top:12px"></div>`;
     },
@@ -856,14 +925,22 @@ async function _generateQuizQuestions(exam, count, type) {
       const body = document.getElementById('cf-mock-modal_body');
       if (!body) return;
       if (!MockTest._state) {
-        const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam');
+        // Include all study modes: exams, classes, college, diploma
+      const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam'||v.type==='class'||v.type==='college'||v.type==='diploma');
         body.innerHTML = `
           <div class="cf-center-text">
             <div style="font-size:48px;margin-bottom:12px">🎯</div>
             <h3>Timed Mock Test</h3>
             <p class="cf-muted" style="margin:8px 0 20px">AI-generated questions. Marks: +2 correct, −0.5 wrong</p>
-            <div class="cf-exam-grid" style="margin-bottom:20px;justify-content:center">
-              ${exams.map(([k,v])=>`<button class="cf-exam-chip" style="--ec:${v.color}" onclick="MockTest.start('${k}',40)">${v.label}</button>`).join('')}
+            <div style="margin-bottom:20px;text-align:left">
+              <div class="cf-section-label">⚔️ SSC Exams</div>
+              <div class="cf-exam-grid">${Object.entries(EXAM_CONFIGS).filter(([k,v])=>['cgl','chsl','gd','mts','cpo'].includes(k)).map(([k,v])=>`<button class="cf-exam-chip" style="--ec:${v.color}" onclick="MockTest.start('${k}',40)">${v.label}</button>`).join('')}</div>
+              <div class="cf-section-label" style="margin-top:12px">📋 Competitive Exams</div>
+              <div class="cf-exam-grid">${Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam'&&!['cgl','chsl','gd','mts','cpo'].includes(k)).map(([k,v])=>`<button class="cf-exam-chip" style="--ec:${v.color}" onclick="MockTest.start('${k}',40)">${v.label}</button>`).join('')}</div>
+              <div class="cf-section-label" style="margin-top:12px">📖 Class 1–12</div>
+              <div class="cf-exam-grid">${Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='class').map(([k,v])=>`<button class="cf-exam-chip" style="--ec:${v.color}" onclick="MockTest.start('${k}',40)">${v.label}</button>`).join('')}</div>
+              <div class="cf-section-label" style="margin-top:12px">🎓 College / B.Tech / Diploma</div>
+              <div class="cf-exam-grid">${Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='college'||v.type==='diploma').map(([k,v])=>`<button class="cf-exam-chip" style="--ec:${v.color}" onclick="MockTest.start('${k}',40)">${v.label}</button>`).join('')}</div>
             </div>
             <p class="cf-muted" style="font-size:12px">Duration: 48 min • 40 AI-generated Questions • +2/−0.5 marking</p>
           </div>`;
@@ -1039,7 +1116,8 @@ async function _generateQuizQuestions(exam, count, type) {
     _renderExamExpansion() {
       const body = document.getElementById('cf-exam-modal_body');
       if (!body) return;
-      const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam');
+      // Include all study modes: exams, classes, college, diploma
+      const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam'||v.type==='class'||v.type==='college'||v.type==='diploma');
       const classes = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='class');
       body.innerHTML = `
         <div class="cf-section-label">🏛️ Competitive Exams</div>
@@ -2022,12 +2100,24 @@ Format: [{"q":"question text","opts":["A","B","C","D"],"ans":0,"topic":"${subjec
     _renderScorePredictor() {
       const body = document.getElementById('cf-score-modal_body');
       if (!body) return;
-      const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam');
+      // Include all study modes: exams, classes, college, diploma
+      const exams = Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam'||v.type==='class'||v.type==='college'||v.type==='diploma');
       body.innerHTML = `
         <p class="cf-muted" style="margin-bottom:16px">Enter your expected scores to predict rank and cutoff status</p>
         <div class="cf-form-card">
           <select class="cf-input cf-select" id="sp-exam">
-            ${exams.map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+            <optgroup label="── SSC Exams ──">
+              ${Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam'&&['cgl','chsl','gd','mts','cpo'].includes(k)).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+            </optgroup>
+            <optgroup label="── Competitive Exams ──">
+              ${Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='exam'&&!['cgl','chsl','gd','mts','cpo'].includes(k)).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+            </optgroup>
+            <optgroup label="── Class 1–12 ──">
+              ${Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='class').map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+            </optgroup>
+            <optgroup label="── College / B.Tech / Diploma ──">
+              ${Object.entries(EXAM_CONFIGS).filter(([k,v])=>v.type==='college'||v.type==='diploma').map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+            </optgroup>
           </select>
           <div style="display:flex;gap:8px">
             <input class="cf-input" id="sp-score" type="number" placeholder="Your score (e.g. 155)" min="0" max="400" style="flex:1"/>
@@ -2456,10 +2546,8 @@ Format: [{"q":"question text","opts":["A","B","C","D"],"ans":0,"topic":"${subjec
         { icon:'📚', label:'PYQ Bank AI',       cb:'CF.openPYQ()',        premium:true  },
         { icon:'🎯', label:'Mock Test AI',       cb:'MockTest._state=null;CF.openMockTest()', premium:true },
         { icon:'📊', label:'Analytics AI',       cb:'CF.openAnalytics()', premium:true  },
-        { icon:'🔥', label:'Daily Goal AI',      cb:'CF.openDailyGoal()', premium:false },
         { icon:'🏆', label:'Rank Predictor AI',  cb:'CF.openScorePredictor()', premium:false },
         { icon:'👥', label:'Group Study AI',     cb:'CF.openStudyGroups()', premium:false },
-        { icon:'🎁', label:'Refer & Earn',    cb:'CF.openReferral()', premium:false },
       ];
 
       // Build study tools block
@@ -2467,11 +2555,6 @@ Format: [{"q":"question text","opts":["A","B","C","D"],"ans":0,"topic":"${subjec
       featureWrap.id = 'cf-sidebar-features';
       featureWrap.innerHTML = `
         <div class="cf-sidebar-title">Study Tools</div>
-        <div id="cf-daily-bar" title="Daily goal" onclick="CF.openDailyGoal()">
-          <span>🎯</span>
-          <div id="cf-goal-bar-track"><div id="cf-goal-bar"></div></div>
-          <span id="cf-daily-badge">0/${DailyGoal.GOAL}</span>
-        </div>
         ${items.map(i=>`
           <button class="cf-sidebar-btn" onclick="${i.cb};document.getElementById('historyDrawer')?.classList.remove('open')" style="${i.premium&&!isPrem()?'opacity:0.85;':''}" title="${i.premium&&!isPrem()?i.label+' — Premium':'i.label'}">
             <span class="cf-sb-icon">${i.icon}</span>
