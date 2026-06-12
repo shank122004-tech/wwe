@@ -898,7 +898,7 @@ function canSendImage() { return state.isPremium || state.imageCount < FREE_IMAG
 function canSendPdf()   { return state.isPremium || state.pdfCount   < FREE_PDF_LIMIT; }
 
 function incrementCount(type) {
-  if (type === 'text') { state.textCount++; earnCoinForMessage(); }
+  if (type === 'text') { state.textCount++; }
   else if (type === 'image') state.imageCount++;
   else if (type === 'pdf') state.pdfCount++;
   state.totalSolved++; saveState(); updateLimitUI();
@@ -1733,117 +1733,21 @@ function getFollowUpSuggestions(question) {
 }
 
 // ===== IMAGE HANDLING =====
-function setupImageUpload() {
-  if (!dom.imageUploadBtn || !dom.imageInput) return;
-
-  // Guard: prevent attaching duplicate listeners if called more than once
-  if (dom.imageUploadBtn._listenerAttached) return;
-  dom.imageUploadBtn._listenerAttached = true;
-
-  dom.imageUploadBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    // Close submenu, then open file picker
-    const subMenu = document.getElementById('uploadSubMenu');
-    const wrap = document.getElementById('uploadBtnWrap');
-    if (subMenu) subMenu.style.display = 'none';
-    if (wrap) wrap.classList.remove('open');
-    dom.imageInput.click();
-  });
-  dom.imageInput.addEventListener('change', handleImageSelect);
-}
-async function handleImageSelect(e) {
-  const files = Array.from(e.target.files);
-  if (!files.length) return;
-  if (!canSendImage()) { showToast(`❌ Daily image limit reached!`); handleLimitHit('image'); return; }
-  const MAX_SIZE = 4 * 1024 * 1024;
-  for (const file of files) {
-    if (file.size > MAX_SIZE) { showToast(`❌ ${file.name} too large. Max 4MB.`); continue; }
-    const compressed = await compressImage(file);
-    pendingImageFiles.push({ data: compressed.base64, mimeType: compressed.mimeType, name: file.name });
-  }
-  updateAttachmentPreview(); e.target.value = '';
-  showToast(`🖼️ ${pendingImageFiles.length} image(s) ready. Type your question and send!`);
-}
-async function compressImage(file) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.onload = () => {
-      URL.revokeObjectURL(url);
-      const canvas = document.createElement('canvas');
-      const MAX_DIM = 1024;
-      let w = img.width, h = img.height;
-      if (w > MAX_DIM || h > MAX_DIM) { if (w > h) { h = Math.round(h * MAX_DIM / w); w = MAX_DIM; } else { w = Math.round(w * MAX_DIM / h); h = MAX_DIM; } }
-      canvas.width = w; canvas.height = h; canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-      resolve({ base64: dataUrl.split(',')[1], mimeType: 'image/jpeg' });
-    };
-    img.onerror = () => { const reader = new FileReader(); reader.onload = (e) => resolve({ base64: e.target.result.split(',')[1], mimeType: file.type }); reader.readAsDataURL(file); };
-    img.src = url;
-  });
-}
-
-// ===== PDF HANDLING =====
-function setupPdfUpload() {
-  if (!dom.pdfUploadBtn || !dom.pdfInput) return;
-
-  // Guard: prevent duplicate listeners
-  if (dom.pdfUploadBtn._listenerAttached) return;
-  dom.pdfUploadBtn._listenerAttached = true;
-
-  dom.pdfUploadBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    // Close submenu, then open file picker
-    const subMenu = document.getElementById('uploadSubMenu');
-    const wrap = document.getElementById('uploadBtnWrap');
-    if (subMenu) subMenu.style.display = 'none';
-    if (wrap) wrap.classList.remove('open');
-    dom.pdfInput.click();
-  });
-  dom.pdfInput.addEventListener('change', handlePdfSelect);
-}
-
-// Wire upload menu toggle (open/close the +image/pdf submenu)
-function setupUploadMenu() {
-  const menuBtn = document.getElementById('uploadMenuBtn');
-  const subMenu = document.getElementById('uploadSubMenu');
-  const wrap    = document.getElementById('uploadBtnWrap');
-  if (!menuBtn || !subMenu || !wrap) return;
-  if (menuBtn._listenerAttached) return;
-  menuBtn._listenerAttached = true;
-
-  menuBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = wrap.classList.toggle('open');
-    subMenu.style.display = isOpen ? 'flex' : 'none';
-  });
-
-  // Close submenu when clicking anywhere outside
-  document.addEventListener('click', (e) => {
-    if (!wrap.contains(e.target)) {
-      wrap.classList.remove('open');
-      subMenu.style.display = 'none';
-    }
-  });
-}
-async function handlePdfSelect(e) {
-  const file = e.target.files[0]; if (!file) return;
-  if (!canSendPdf()) { showToast(`❌ Daily PDF limit reached!`); handleLimitHit('pdf'); return; }
-  if (file.size > 10 * 1024 * 1024) { showToast('❌ PDF too large. Max 10MB.'); return; }
-  const reader = new FileReader();
-  reader.onload = (ev) => { pendingPdfFile = { data: ev.target.result.split(',')[1], name: file.name }; updateAttachmentPreview(); showToast(`📄 PDF "${file.name}" ready!`); };
-  reader.readAsDataURL(file); e.target.value = '';
-}
+// ===== IMAGE/PDF UPLOAD REMOVED =====
+// Image and PDF upload have been disabled. Functions kept as no-ops for compatibility.
+function setupImageUpload() { /* disabled */ }
+async function handleImageSelect(e) { /* disabled */ }
+async function compressImage(file) { return { base64: '', mimeType: 'image/jpeg' }; }
+function setupPdfUpload() { /* disabled */ }
+function setupUploadMenu() { /* disabled */ }
+async function handlePdfSelect(e) { /* disabled */ }
 function updateAttachmentPreview() {
   if (!dom.attachmentPreview) return;
-  const items = [];
-  pendingImageFiles.forEach((img, i) => items.push(`<div class="attach-item"><img src="data:${img.mimeType};base64,${img.data}" class="attach-thumb" /><button onclick="removeImage(${i})" class="attach-remove">✕</button></div>`));
-  if (pendingPdfFile) items.push(`<div class="attach-item attach-pdf"><span>📄 ${escapeHtml(pendingPdfFile.name)}</span><button onclick="removePdf()" class="attach-remove">✕</button></div>`);
-  dom.attachmentPreview.innerHTML = items.join('');
-  dom.attachmentPreview.style.display = items.length ? 'flex' : 'none';
+  dom.attachmentPreview.innerHTML = '';
+  dom.attachmentPreview.style.display = 'none';
 }
-window.removeImage = function(i) { pendingImageFiles.splice(i, 1); updateAttachmentPreview(); };
-window.removePdf = function() { pendingPdfFile = null; updateAttachmentPreview(); };
+window.removeImage = function(i) { };
+window.removePdf = function() { };
 
 // ===== SEND MESSAGE =====
 async function sendMessage() {
@@ -2093,8 +1997,21 @@ function updateUserUI() {
     }
   } catch(e) {}
   const plan = state.isPremium ? getPlanDisplayName(state.premiumPlan) : isRewardActive() ? '⚡ Unlimited (Reward)' : 'Free Plan';
-  if (dom.headerAvatar) { dom.headerAvatar.textContent = ''; if (state.user?.photoURL) { dom.headerAvatar.style.backgroundImage = `url(${state.user.photoURL})`; dom.headerAvatar.style.backgroundSize = 'cover'; dom.headerAvatar.style.backgroundPosition = 'center'; } else { dom.headerAvatar.textContent = initials; dom.headerAvatar.style.backgroundImage = ''; } }
-  if (dom.drawerAvatar) { if (state.user?.photoURL) { dom.drawerAvatar.style.backgroundImage = `url(${state.user.photoURL})`; dom.drawerAvatar.style.backgroundSize = 'cover'; dom.drawerAvatar.textContent = ''; } else { dom.drawerAvatar.textContent = initials; dom.drawerAvatar.style.backgroundImage = ''; } }
+  // Avatar priority: shop avatar > Google photo > initials
+  const _cos = (function(){ try { const uid2=state.user?.uid||'guest'; return JSON.parse(localStorage.getItem('sscai_u:'+uid2+':cosmetics')||'{}'); } catch(e){ return {}; } })();
+  const _shopAvEmoji = { av_fire:'🔥', av_star:'⭐', av_rocket:'🚀', av_crown:'👑', av_ninja:'🥷', av_robot:'🤖', av_dragon:'🐉', av_diamond:'💎', av_lightning:'⚡', av_wizard:'🧙‍♂️', av_astronaut:'👨‍🚀', av_galaxy:'🌌', av_phantom:'👻', av_tiger:'🐯', av_legend:'⭐' };
+  const _equippedAv = _cos['equipped_avatar'];
+  const _avEmoji = _equippedAv && _shopAvEmoji[_equippedAv] ? _shopAvEmoji[_equippedAv] : null;
+  if (dom.headerAvatar) {
+    if (_avEmoji) { dom.headerAvatar.textContent = _avEmoji; dom.headerAvatar.style.backgroundImage = ''; dom.headerAvatar.style.fontSize = '18px'; }
+    else if (state.user?.photoURL) { dom.headerAvatar.textContent = ''; dom.headerAvatar.style.backgroundImage = `url(${state.user.photoURL})`; dom.headerAvatar.style.backgroundSize = 'cover'; dom.headerAvatar.style.backgroundPosition = 'center'; dom.headerAvatar.style.fontSize = ''; }
+    else { dom.headerAvatar.textContent = initials; dom.headerAvatar.style.backgroundImage = ''; dom.headerAvatar.style.fontSize = ''; }
+  }
+  if (dom.drawerAvatar) {
+    if (_avEmoji) { dom.drawerAvatar.textContent = _avEmoji; dom.drawerAvatar.style.backgroundImage = ''; dom.drawerAvatar.style.fontSize = '18px'; }
+    else if (state.user?.photoURL) { dom.drawerAvatar.style.backgroundImage = `url(${state.user.photoURL})`; dom.drawerAvatar.style.backgroundSize = 'cover'; dom.drawerAvatar.textContent = ''; dom.drawerAvatar.style.fontSize = ''; }
+    else { dom.drawerAvatar.textContent = initials; dom.drawerAvatar.style.backgroundImage = ''; dom.drawerAvatar.style.fontSize = ''; }
+  }
   if (dom.drawerUserName) dom.drawerUserName.textContent = name;
   if (dom.drawerUserPlan) {
     dom.drawerUserPlan.textContent = plan;
@@ -2125,13 +2042,24 @@ function updateProfileUI() {
     dom.profileLoggedIn.classList.remove('hidden');
     const name = state.user.name || 'User';
     const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-    if (state.user.photoURL) {
+    // Avatar priority: shop avatar > Google photo > initials
+    const _pcos = (function(){ try { return JSON.parse(localStorage.getItem('sscai_u:'+(state.user?.uid||'guest')+':cosmetics')||'{}'); } catch(e){ return {}; } })();
+    const _pAvMap = { av_fire:'🔥', av_star:'⭐', av_rocket:'🚀', av_crown:'👑', av_ninja:'🥷', av_robot:'🤖', av_dragon:'🐉', av_diamond:'💎', av_lightning:'⚡', av_wizard:'🧙‍♂️', av_astronaut:'👨‍🚀', av_galaxy:'🌌', av_phantom:'👻', av_tiger:'🐯', av_legend:'⭐' };
+    const _pEquippedAv = _pcos['equipped_avatar'];
+    const _pAvEmoji = _pEquippedAv && _pAvMap[_pEquippedAv] ? _pAvMap[_pEquippedAv] : null;
+    if (_pAvEmoji) {
+      dom.profileAvatar.textContent = _pAvEmoji;
+      dom.profileAvatar.style.backgroundImage = '';
+      dom.profileAvatar.style.fontSize = '28px';
+    } else if (state.user.photoURL) {
       dom.profileAvatar.style.backgroundImage = `url(${state.user.photoURL})`;
       dom.profileAvatar.style.backgroundSize = 'cover';
       dom.profileAvatar.textContent = '';
+      dom.profileAvatar.style.fontSize = '';
     } else {
       dom.profileAvatar.textContent = initials;
       dom.profileAvatar.style.backgroundImage = '';
+      dom.profileAvatar.style.fontSize = '';
     }
     dom.profileName.textContent = name;
     const emailEl = document.getElementById('profileEmail'); if (emailEl) emailEl.textContent = state.user.email || '—';
@@ -3507,9 +3435,11 @@ function applyEquippedCosmetics() {
     av_ninja:'av-ninja', av_robot:'av-robot', av_dragon:'av-dragon', av_diamond:'av-diamond'
   };
   [document.getElementById('drawerAvatar'), document.getElementById('headerAvatar'), document.getElementById('profileAvatar')].forEach(el => {
-    if (!el || state.user?.photoURL) return;
+    if (!el) return;
+    // If a shop avatar is equipped, it takes priority over Google photo
     if (avatar && avatarEmojiMap[avatar]) {
       el.textContent = avatarEmojiMap[avatar];
+      el.style.backgroundImage = '';
       el.style.fontSize = '20px';
       // Apply gradient bg from avatar class
       const cls = avatarClassMap[avatar];
@@ -3524,6 +3454,13 @@ function applyEquippedCosmetics() {
         'av-diamond':'linear-gradient(135deg,#00bfff,#7b72ff)'
       };
       el.style.background = gradMap[cls] || '';
+    } else if (state.user?.photoURL) {
+      // No shop avatar — show Google profile photo
+      el.textContent = '';
+      el.style.backgroundImage = `url(${state.user.photoURL})`;
+      el.style.backgroundSize = 'cover';
+      el.style.backgroundPosition = 'center';
+      el.style.fontSize = '';
     }
   });
   // Apply name color
@@ -3577,8 +3514,8 @@ function applyEquippedCosmetics() {
   });
 }
 
-// Earn 1 coin per message sent
-function earnCoinForMessage() { earnCoins(1); }
+// Coin earning is via battle wins only (not per message)
+function earnCoinForMessage() { /* disabled — coins earned via battle wins only */ }
 
 // ===== INITIALIZATION =====
 function initApp() {
